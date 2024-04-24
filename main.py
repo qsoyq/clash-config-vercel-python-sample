@@ -7,7 +7,7 @@ import json
 # 在 Vercel 项目中添加环境变量，名称为 SUB_URLS ，值为列表形式，如：["sub_0", "sub_1"]，注意：列表内的订阅地址必须用双引号包裹。
 proxy_provider_sub_urls = json.loads(os.getenv('SUB_URLS'))
 
-# 在 Vercel 项目中添加环境变量，名称为 UUID_PASSKEY，值为任意，生成的订阅链接必须带此参数才会返回正确的订阅值。可使用 https://www.uuidgenerator.net/ 在线生成。
+# 在 Vercel 项目中添加环境变量，名称为 UUID_PASSKEY，值为任意，生成的订阅链接必须带此参数对应的路径才会返回正确的订阅值。可使用 https://www.uuidgenerator.net/ 在线生成。
 uuid_passkey = os.getenv('UUID_PASSKEY')
 
 proxy_provider_proxies = []
