@@ -21,7 +21,7 @@ for proxy_provider_sub_url in proxy_provider_sub_urls:
     sub = response.text
     sub_obj = yaml.safe_load(sub)
     proxies = sub_obj.get('proxies', [])
-    proxies = [x for x in proxies if x.get("name") and re.match(filter_regex, x['name'])]
+    proxies = [x for x in proxies if x.get("name") and re.search(filter_regex, x['name'])]
     filtered_proxies = [proxy for proxy in proxies]
     # filtered_proxies = [proxy for proxy in proxies if 'plugin' not in proxy] # why?
 
