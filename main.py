@@ -3,6 +3,7 @@ import requests
 import yaml
 import os
 import json
+import re
 
 # 在 Vercel 项目中添加环境变量，名称为 SUB_URLS ，值为列表形式，如：["sub_0", "sub_1"]，注意：列表内的订阅地址必须用双引号包裹。
 proxy_provider_sub_urls = json.loads(os.getenv('SUB_URLS'))
@@ -11,6 +12,7 @@ proxy_provider_sub_urls = json.loads(os.getenv('SUB_URLS'))
 uuid_passkey = os.getenv('UUID_PASSKEY')
 
 proxy_provider_proxies = []
+filter_regex = ''
 
 for proxy_provider_sub_url in proxy_provider_sub_urls:
     headers = {'User-Agent': 'clash'}
@@ -19,6 +21,7 @@ for proxy_provider_sub_url in proxy_provider_sub_urls:
     sub = response.text
     sub_obj = yaml.safe_load(sub)
     proxies = sub_obj.get('proxies', [])
+    proxies = [x for x in proxies if x.get("name") and re.match(filter_regex, x['name'])]
     filtered_proxies = [proxy for proxy in proxies if 'plugin' not in proxy]
 
     proxy_provider_proxies.extend(filtered_proxies)
